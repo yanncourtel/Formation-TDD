@@ -16,7 +16,7 @@ namespace YahtzeeApp.Tests
 
 
             // Act
-            var result = scoreEngine.CalculateCombination(roll, "Ones");
+            var result = scoreEngine.CalculateCombination(roll, Combination.Ones);
 
             // Assert
             Assert.Equal(1,result);
@@ -30,7 +30,7 @@ namespace YahtzeeApp.Tests
             var scoreEngine = new ScoreEngine();
 
             // Act
-            var result = scoreEngine.CalculateCombination(roll, "Ones");
+            var result = scoreEngine.CalculateCombination(roll, Combination.Ones);
 
             // Assert
             Assert.Equal(0, result);
@@ -44,7 +44,7 @@ namespace YahtzeeApp.Tests
             var scoreEngine = new ScoreEngine();
 
             // Act
-            var result = scoreEngine.CalculateCombination(roll, "Twos");
+            var result = scoreEngine.CalculateCombination(roll, Combination.Twos);
 
             // Assert
             Assert.Equal(6, result);
@@ -58,12 +58,19 @@ namespace YahtzeeApp.Tests
             var scoreEngine = new ScoreEngine();
 
             // Act
-            var result = scoreEngine.CalculateCombination(roll, "Sixes");
+            var result = scoreEngine.CalculateCombination(roll, Combination.Sixes);
 
             // Assert
             Assert.Equal(12, result);
         }
 
+    }
+
+    public enum Combination
+    {
+        Ones = 1,
+        Twos = 2,
+        Sixes = 6
     }
 
     public class ScoreEngine
@@ -72,14 +79,10 @@ namespace YahtzeeApp.Tests
         {
         }
 
-        public int CalculateCombination(Roll roll, string combination)
+        public int CalculateCombination(Roll roll, Combination combination)
         {
-            if (combination == "Twos")
-                return 2 * roll.GetOccurencesOf(2);
-            if (combination == "Sixes")
-                return 6 * roll.GetOccurencesOf(6);
-
-            return roll.GetOccurencesOf(1);
+                
+            return (int) combination * roll.GetOccurencesOf((int) combination);
         }
     }
 
