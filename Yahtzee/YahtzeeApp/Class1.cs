@@ -1,8 +1,7 @@
-﻿using System;
-
-namespace YahtzeeApp
+﻿namespace YahtzeeApp
 {
     public class Class1
     {
+
     }
 }
