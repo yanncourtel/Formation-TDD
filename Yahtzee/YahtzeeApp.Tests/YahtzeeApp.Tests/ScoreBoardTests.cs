@@ -24,17 +24,17 @@ namespace YahtzeeApp.Tests
         }
 
         [Fact]
-        public void test()
+        public void Should_have_total_score_of_10_After_scoring_10_for_combination_fives_and_roll_2_5_3_1_5()
         {
             // Arrange
             var scoreBoard = new ScoreBoard();
 
-            // Act
+            // Act           
             scoreBoard.SaveScore(Combination.Fives, new Roll(2,5,3,1,5));
             var total = scoreBoard.GetTotalScore();
 
             // Assert
-            Assert.Equal(10, total);
+            Assert.Equal(10, total);         
         }
     }
 
@@ -44,14 +44,18 @@ namespace YahtzeeApp.Tests
         {
         }
 
+        public int TotalScore { get; private set; }
+
         public int GetTotalScore()
         {
-            return 0;
+            return TotalScore;
         }
 
-        internal void SaveScore(Combination fives, Roll roll)
+        public void SaveScore(Combination combination, Roll roll)
         {
-            throw new NotImplementedException();
+            ScoreEngine scoreEngine = new ScoreEngine();
+            var result = scoreEngine.CalculateCombination(roll, combination);
+            TotalScore = result;
         }
     }
 }
