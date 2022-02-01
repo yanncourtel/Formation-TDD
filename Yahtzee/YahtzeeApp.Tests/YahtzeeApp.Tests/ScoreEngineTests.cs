@@ -12,7 +12,7 @@ namespace YahtzeeApp.Tests
         [InlineData(6, 2, 4, 6, 2, Combination.Fours, 4)]
         [InlineData(6, 5, 5, 5, 5, Combination.Fives, 20)]
         [InlineData(6, 2, 3, 6, 2, Combination.Sixes, 12)]
-        
+
         public void Should_calculate_the_correct_score_for_a_roll_and_a_simple_combination(int diceValue1, int diceValue2, int diceValue3, int diceValue4, int diceValue5, Combination combination, int expectedResult)
         {
             // Arrange
@@ -27,11 +27,13 @@ namespace YahtzeeApp.Tests
         }
 
         [Theory]
-        [InlineData(6, 2, 3, 6, 2, Combination.Chance, 19)]
-        [InlineData(6, 2, 6, 6, 2, Combination.ThreeOfAKind, 22)]
-        [InlineData(3, 2, 6, 6, 2, Combination.ThreeOfAKind, 0)]
-        [InlineData(6, 6, 6, 6, 2, Combination.FourOfAKind, 26)]
-        public void Should_calculate_the_correct_score_for_a_roll_and_a_complex_combination(int diceValue1, int diceValue2, int diceValue3, int diceValue4, int diceValue5, Combination combination, int expectedResult)
+        [InlineData(19, Combination.Chance, 6, 2, 3, 6, 2)]
+        [InlineData(22, Combination.ThreeOfAKind, 6, 2, 6, 6, 2)]
+        [InlineData(0, Combination.ThreeOfAKind, 3, 2, 6, 6, 2)]
+        [InlineData(26, Combination.FourOfAKind, 6, 6, 6, 6, 2)]
+        [InlineData(50, Combination.Yahtzee, 6, 6, 6, 6, 6)]
+        [InlineData(0, Combination.Yahtzee, 6, 6, 6, 6, 1)]
+        public void Should_calculate_the_correct_score_for_a_roll_and_a_complex_combination(int expectedResult, Combination combination, int diceValue1, int diceValue2, int diceValue3, int diceValue4, int diceValue5)
         {
             // Arrange
             var roll = new Roll(diceValue1, diceValue2, diceValue3, diceValue4, diceValue5);

@@ -10,6 +10,7 @@ namespace YahtzeeApp
         Sixes = 6,
         Chance = 7,
         ThreeOfAKind = 8,
-        FourOfAKind = 9
+        FourOfAKind = 9,
+        Yahtzee = 10
     }
 }

@@ -8,13 +8,14 @@ namespace YahtzeeApp
 
         public int CalculateCombination(Roll roll, Combination combination)
         {
-            if (combination == Combination.Chance)
-                return roll.GetDicesValueSum();
-            if (combination == Combination.ThreeOfAKind)
-                return roll.HasThreeOfKind()? roll.GetDicesValueSum() : 0;
-            if (combination == Combination.FourOfAKind)
-                return roll.HasFourOfKind() ? roll.GetDicesValueSum() : 0;
-            return (int)combination * roll.GetOccurencesOf((int)combination);
+            return combination switch
+            {
+                Combination.Chance => roll.GetDicesValueSum(),
+                Combination.ThreeOfAKind => roll.HasThreeOfKind() ? roll.GetDicesValueSum() : 0,
+                Combination.FourOfAKind => roll.HasFourOfKind() ? roll.GetDicesValueSum() : 0,
+                Combination.Yahtzee => roll.HasYahtzee() ? 50 : 0,
+                _ => (int)combination * roll.GetOccurencesOf((int)combination)
+            };
         }
     }
 }

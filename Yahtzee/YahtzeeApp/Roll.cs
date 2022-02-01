@@ -37,5 +37,10 @@ namespace YahtzeeApp
         {
             return _diceValues.Count(x => x == diceValue);
         }
+
+        public bool HasYahtzee()
+        {
+            return _diceValues.Distinct().Count() == 1;
+        }
     }
 }
