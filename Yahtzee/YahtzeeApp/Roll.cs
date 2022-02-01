@@ -15,7 +15,17 @@ namespace YahtzeeApp
 
         internal bool HasThreeOfKind()
         {
-            return _diceValues.GroupBy(dice => dice).Any(x => x.Count() == 3);
+            return HasNumberOfOccurence(3);
+        }
+
+        internal bool HasFourOfKind()
+        {
+            return HasNumberOfOccurence(4);
+        }
+
+        private bool HasNumberOfOccurence(int n)
+        {
+            return _diceValues.GroupBy(dice => dice).Any(x => x.Count() == n);
         }
 
         public int GetDicesValueSum()
