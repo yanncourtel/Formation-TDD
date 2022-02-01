@@ -36,12 +36,45 @@ namespace YahtzeeApp.Tests
             // Assert
             Assert.Equal(10, total);         
         }
+
+        [Fact]
+        public void Should_have_total_score_of_28_After_scoring_multiple_combinations()
+        {
+            // Arrange
+            var scoreBoard = new ScoreBoard();
+
+            // Act           
+            scoreBoard.SaveScore(Combination.Fives, new Roll(2, 5, 3, 1, 5));
+            scoreBoard.SaveScore(Combination.Chance, new Roll(2, 5, 6, 1, 4));
+            var total = scoreBoard.GetTotalScore();
+
+            // Assert
+            Assert.Equal(28, total);
+        }
+
+        [Fact]
+        public void Should_get_score_of_10_for_combination_fives_After_scoring_multiple_combinations()
+        {
+            // Arrange
+            var scoreBoard = new ScoreBoard();
+
+            // Act           
+            scoreBoard.SaveScore(Combination.Fives, new Roll(2, 5, 3, 1, 5));
+            scoreBoard.SaveScore(Combination.Chance, new Roll(2, 5, 6, 1, 4));
+            var score = scoreBoard.GetScore(Combination.Fives);
+
+            // Assert
+            Assert.Equal(10, score);
+        }
     }
 
     public class ScoreBoard
     {
+        private readonly Dictionary<Combination, int> combinationScores;
+
         public ScoreBoard()
         {
+            combinationScores = new Dictionary<Combination, int>();
         }
 
         public int TotalScore { get; private set; }
@@ -55,7 +88,13 @@ namespace YahtzeeApp.Tests
         {
             ScoreEngine scoreEngine = new ScoreEngine();
             var result = scoreEngine.CalculateCombination(roll, combination);
-            TotalScore = result;
+            combinationScores.Add(combination, result);
+            TotalScore += result;
+        }
+
+        internal int GetScore(Combination combination)
+        {
+            return combinationScores[combination];
         }
     }
 }
