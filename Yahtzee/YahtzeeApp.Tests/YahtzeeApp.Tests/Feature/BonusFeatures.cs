@@ -28,8 +28,8 @@ And the simple combination bonus score is 35
         {
             // Given
             var scoreBoard = new ScoreBoard();
-            IDiceGenerator diceGenerator = new Mock<IDiceGenerator>();
-            var player = new Player(scoreBoard, diceGenerator);
+            var diceGenerator = new Mock<IDiceGenerator>();
+            var player = new Player(scoreBoard, diceGenerator.Object);
 
             SetGeneratedDices(1, 1, 1, 1, 6);
             player.RollDices();
@@ -58,6 +58,11 @@ And the simple combination bonus score is 35
 
             // Assert
             Assert.Equal(119, scoreBoard.GetTotalScore());
+        }
+
+        private void SetGeneratedDices(int v1, int v2, int v3, int v4, int v5)
+        {
+            throw new NotImplementedException();
         }
     }
 }
