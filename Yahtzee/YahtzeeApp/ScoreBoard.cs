@@ -7,6 +7,8 @@ namespace YahtzeeApp
     {
         private readonly Dictionary<Combination, int> combinationScores;
 
+        public int BonusSimpleCombination => GetSimpleCombinationTotalScore() >= 63 ? 35 : 0; 
+
         public ScoreBoard()
         {
             combinationScores = new Dictionary<Combination, int>();
@@ -14,7 +16,7 @@ namespace YahtzeeApp
 
         public int GetTotalScore()
         {
-            return combinationScores.Values.Sum();
+            return combinationScores.Values.Sum() + BonusSimpleCombination;
         }
 
         public void SaveScore(Combination combination, Roll roll)

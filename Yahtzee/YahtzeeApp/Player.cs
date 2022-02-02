@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace YahtzeeApp
 {
@@ -6,6 +7,8 @@ namespace YahtzeeApp
     {
         private ScoreBoard scoreBoard;
         private IDiceGenerator diceGenerator;
+        public Roll Roll { get; set; }
+        public int TotalScore => scoreBoard.GetTotalScore();
 
         public Player(ScoreBoard scoreBoard, IDiceGenerator diceGenerator)
         {
@@ -13,16 +16,15 @@ namespace YahtzeeApp
             this.diceGenerator = diceGenerator;
         }
 
-        public Roll Roll { get; set; }
-
         public void RollDices()
         {
-            Roll = new Roll(new Dice(1), new Dice(1), new Dice(1), new Dice(1), new Dice(1));
+            var dices = diceGenerator.GenerateDices(5);
+            Roll = new Roll(dices[0], dices[1], dices[2], dices[3], dices[4]);
         }
 
         public void SelectScore(Combination ones)
         {
-            throw new NotImplementedException();
+            scoreBoard.SaveScore(ones, Roll);
         }
     }
 }

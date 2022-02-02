@@ -10,6 +10,8 @@ namespace YahtzeeApp.Tests.Feature
 {
     public class BonusFeatures
     {
+        private Mock<IDiceGenerator> _diceGenerator;
+
         /*
          *
 Scenario 1 : Bonus Simple Combination
@@ -28,8 +30,8 @@ And the simple combination bonus score is 35
         {
             // Given
             var scoreBoard = new ScoreBoard();
-            var diceGenerator = new Mock<IDiceGenerator>();
-            var player = new Player(scoreBoard, diceGenerator.Object);
+            _diceGenerator = new Mock<IDiceGenerator>();
+            var player = new Player(scoreBoard, _diceGenerator.Object);
 
             SetGeneratedDices(1, 1, 1, 1, 6);
             player.RollDices();
@@ -62,7 +64,11 @@ And the simple combination bonus score is 35
 
         private void SetGeneratedDices(int v1, int v2, int v3, int v4, int v5)
         {
-            throw new NotImplementedException();
+            _diceGenerator.Setup(x => x.GenerateDices(5))
+                .Returns(new List<Dice>()
+                {
+                    new Dice(v1), new Dice(v2), new Dice(v3), new Dice(v4), new Dice(v5)
+                });
         }
     }
 }
