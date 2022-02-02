@@ -17,7 +17,7 @@ namespace YahtzeeApp.Tests
         {
 
             // Arrange
-            var roll = new RollBuilder().FromDicesValue(diceValue1, diceValue2, diceValue3, diceValue4, diceValue5).Build();
+            Roll roll = new RollBuilder().FromDicesValue(diceValue1, diceValue2, diceValue3, diceValue4, diceValue5).Build();
                 //new Roll(diceValue1, diceValue2, diceValue3, diceValue4, diceValue5);
             var scoreEngine = new ScoreEngine();
 
@@ -38,7 +38,7 @@ namespace YahtzeeApp.Tests
         public void Should_calculate_the_correct_score_for_a_roll_and_a_complex_combination(int expectedResult, Combination combination, int diceValue1, int diceValue2, int diceValue3, int diceValue4, int diceValue5)
         {
             // Arrange
-            var roll = new Roll(diceValue1, diceValue2, diceValue3, diceValue4, diceValue5);
+            Roll roll = new RollBuilder().FromDicesValue(diceValue1, diceValue2, diceValue3, diceValue4, diceValue5).Build();
             var scoreEngine = new ScoreEngine();
 
             // Act

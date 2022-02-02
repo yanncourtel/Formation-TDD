@@ -23,9 +23,9 @@ namespace YahtzeeApp
     {
         private readonly List<int> _diceValues;
 
-        public Roll(Dice diceValue1, int diceValue2, int diceValue3, int diceValue4, int diceValue5)
+        public Roll(Dice diceValue1, Dice diceValue2, Dice diceValue3, Dice diceValue4, Dice diceValue5)
         {
-            _diceValues = new List<int>() { diceValue1.Value, diceValue2, diceValue3, diceValue4, diceValue5 };
+            _diceValues = new List<int>() { diceValue1.Value, diceValue2.Value, diceValue3.Value, diceValue4.Value, diceValue5.Value };
         }
 
         internal bool HasThreeOfKind()

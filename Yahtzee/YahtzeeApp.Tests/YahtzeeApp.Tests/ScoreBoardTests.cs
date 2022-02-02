@@ -25,15 +25,15 @@ namespace YahtzeeApp.Tests
         }
 
        
-
         [Fact]
         public void Should_have_total_score_of_10_After_scoring_10_for_combination_fives_and_roll_2_5_3_1_5()
         {
             // Arrange
             var scoreBoard = CreateScoreBoard();
-
+            Roll roll = new RollBuilder().FromDicesValue(2, 5, 3, 1, 5).Build();
+            
             // Act           
-            scoreBoard.SaveScore(Combination.Fives, new Roll(2,5,3,1,5));
+            scoreBoard.SaveScore(Combination.Fives, roll);
             var total = scoreBoard.GetTotalScore();
 
             // Assert
@@ -45,10 +45,12 @@ namespace YahtzeeApp.Tests
         {
             // Arrange
             var scoreBoard = CreateScoreBoard();
+            Roll roll1 = new RollBuilder().FromDicesValue(2, 5, 3, 1, 5).Build();
+            Roll roll2 = new RollBuilder().FromDicesValue(2, 5, 6, 1, 4).Build();
 
             // Act           
-            scoreBoard.SaveScore(Combination.Fives, new Roll(2, 5, 3, 1, 5));
-            scoreBoard.SaveScore(Combination.Chance, new Roll(2, 5, 6, 1, 4));
+            scoreBoard.SaveScore(Combination.Fives, roll1);
+            scoreBoard.SaveScore(Combination.Chance, roll2);
             var total = scoreBoard.GetTotalScore();
 
             // Assert
@@ -60,10 +62,12 @@ namespace YahtzeeApp.Tests
         {
             // Arrange
             var scoreBoard = CreateScoreBoard();
+            Roll roll1 = new RollBuilder().FromDicesValue(2, 5, 3, 1, 5).Build();
+            Roll roll2 = new RollBuilder().FromDicesValue(2, 5, 6, 1, 4).Build();
 
             // Act           
-            scoreBoard.SaveScore(Combination.Fives, new Roll(2, 5, 3, 1, 5));
-            scoreBoard.SaveScore(Combination.Chance, new Roll(2, 5, 6, 1, 4));
+            scoreBoard.SaveScore(Combination.Fives, roll1);
+            scoreBoard.SaveScore(Combination.Chance, roll2);
             var score = scoreBoard.GetScore(Combination.Fives);
 
             // Assert
