@@ -109,6 +109,23 @@ namespace YahtzeeApp.Tests
                 scoreBoard.SaveScore(Combination.Fives, roll));
         }
 
+        [Fact]
+        public void Should_get_total_score_for_simple_combination()
+        {
+            // Arrange
+            var scoreBoard = CreateScoreBoard();
+            Roll roll1 = new RollBuilder().FromDicesValue(2, 5, 3, 1, 5).Build();
+            Roll roll2 = new RollBuilder().FromDicesValue(2, 2, 3, 1, 5).Build();
+            scoreBoard.SaveScore(Combination.Chance, roll2);
+            scoreBoard.SaveScore(Combination.Fives, roll1);
+
+            // Act         
+
+            var total = scoreBoard.GetSimpleCombinationTotalScore();
+
+            // Assert
+            Assert.Equal(10, total);
+        }
         private ScoreBoard CreateScoreBoard()
         {
             return new ScoreBoard();

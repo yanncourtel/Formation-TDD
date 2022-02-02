@@ -34,5 +34,10 @@ namespace YahtzeeApp
         {
             return ScoreEngine.CalculateCombination(roll, combination);
         }
+
+        public int GetSimpleCombinationTotalScore()
+        {
+            return combinationScores.Where(x => (int)x.Key >= 1 && (int)x.Key <= 6).Sum(x => x.Value);
+        }
     }
 }
