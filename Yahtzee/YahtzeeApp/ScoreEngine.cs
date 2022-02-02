@@ -1,12 +1,8 @@
 namespace YahtzeeApp
 {
-    public class ScoreEngine
+    public static class ScoreEngine
     {
-        public ScoreEngine()
-        {
-        }
-
-        public int CalculateCombination(Roll roll, Combination combination)
+        public static int CalculateCombination(Roll roll, Combination combination)
         {
             return combination switch
             {

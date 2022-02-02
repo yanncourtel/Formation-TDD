@@ -18,11 +18,9 @@ namespace YahtzeeApp.Tests
 
             // Arrange
             Roll roll = new RollBuilder().FromDicesValue(diceValue1, diceValue2, diceValue3, diceValue4, diceValue5).Build();
-                //new Roll(diceValue1, diceValue2, diceValue3, diceValue4, diceValue5);
-            var scoreEngine = new ScoreEngine();
 
             // Act
-            var result = scoreEngine.CalculateCombination(roll, combination);
+            var result = ScoreEngine.CalculateCombination(roll, combination);
 
             // Assert
             Assert.Equal(expectedResult, result);
@@ -39,10 +37,9 @@ namespace YahtzeeApp.Tests
         {
             // Arrange
             Roll roll = new RollBuilder().FromDicesValue(diceValue1, diceValue2, diceValue3, diceValue4, diceValue5).Build();
-            var scoreEngine = new ScoreEngine();
 
             // Act
-            var result = scoreEngine.CalculateCombination(roll, combination);
+            var result = ScoreEngine.CalculateCombination(roll, combination);
 
             // Assert
             Assert.Equal(expectedResult, result);

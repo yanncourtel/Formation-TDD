@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Xunit;
+﻿using Xunit;
 
 namespace YahtzeeApp.Tests
 {
@@ -82,45 +81,22 @@ namespace YahtzeeApp.Tests
             Assert.Equal(10, score);
         }
 
+        [Fact]
+        public void Should_get_null_score_for_unsaved_combination()
+        {
+            // Arrange
+            var scoreBoard = CreateScoreBoard();
+
+            // Act           
+            int? score = scoreBoard.GetScore(Combination.Fives);
+
+            // Assert
+            Assert.Null(score);
+        }
+
         private ScoreBoard CreateScoreBoard()
         {
             return new ScoreBoard();
-        }
-    }
-
-    public class ScoreBoard
-    {
-        private readonly Dictionary<Combination, int> combinationScores;
-
-        public ScoreBoard()
-        {
-            combinationScores = new Dictionary<Combination, int>();
-        }
-
-        public int TotalScore { get; private set; }
-
-        public int GetTotalScore()
-        {
-            return TotalScore;
-        }
-
-        public void SaveScore(Combination combination, Roll roll)
-        {
-            ScoreEngine scoreEngine = new ScoreEngine();
-            var result = scoreEngine.CalculateCombination(roll, combination);
-            combinationScores.Add(combination, result);
-            TotalScore += result;
-        }
-
-        internal int GetScore(Combination combination)
-        {
-            return combinationScores[combination];
-        }
-
-        public int PreviewScore(Combination combination, Roll roll)
-        {
-            ScoreEngine scoreEngine = new ScoreEngine();
-            return scoreEngine.CalculateCombination(roll, combination);
         }
     }
 }
