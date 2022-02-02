@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using System.Collections.Generic;
 using Xunit;
 
 namespace YahtzeeApp.Tests
@@ -74,6 +69,19 @@ namespace YahtzeeApp.Tests
             Assert.Equal(10, score);
         }
 
+        [Fact]
+        public void Should_preview_score_for_a_combination_and_a_roll()
+        {
+            // Arrange
+            var scoreBoard = CreateScoreBoard();
+            Roll roll = new RollBuilder().FromDicesValue(2, 5, 3, 1, 5).Build();
+            // Act
+            var score = scoreBoard.PreviewScore(Combination.Fives, roll);
+
+            // Assert
+            Assert.Equal(10, score);
+        }
+
         private ScoreBoard CreateScoreBoard()
         {
             return new ScoreBoard();
@@ -109,5 +117,10 @@ namespace YahtzeeApp.Tests
             return combinationScores[combination];
         }
 
+        public int PreviewScore(Combination combination, Roll roll)
+        {
+            ScoreEngine scoreEngine = new ScoreEngine();
+            return scoreEngine.CalculateCombination(roll, combination);
+        }
     }
 }
