@@ -13,11 +13,11 @@ namespace YahtzeeApp
             this.diceGenerator = diceGenerator;
         }
 
-        public object Roll { get; set; }
+        public Roll Roll { get; set; }
 
         public void RollDices()
         {
-            throw new NotImplementedException();
+            Roll = new Roll(new Dice(1), new Dice(1), new Dice(1), new Dice(1), new Dice(1));
         }
 
         public void SelectScore(Combination ones)
