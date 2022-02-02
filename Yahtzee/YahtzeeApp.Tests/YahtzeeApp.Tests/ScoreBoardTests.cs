@@ -72,7 +72,7 @@ namespace YahtzeeApp.Tests
     {
         private readonly Dictionary<Combination, int> combinationScores;
 
-        public ScoreBoard()
+        public ScoreBoard(object repository)
         {
             combinationScores = new Dictionary<Combination, int>();
         }
