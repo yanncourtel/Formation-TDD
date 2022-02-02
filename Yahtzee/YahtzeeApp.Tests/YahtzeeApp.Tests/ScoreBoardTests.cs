@@ -10,11 +10,12 @@ namespace YahtzeeApp.Tests
 {
     public class ScoreBoardTests
     {
+       
         [Fact]
         public void Should_have_initial_total_score_of_0()
         {
             // Arrange
-            var scoreBoard = new ScoreBoard();
+            var scoreBoard = CreateScoreBoard();
 
             // Act
             var total = scoreBoard.GetTotalScore();
@@ -23,11 +24,13 @@ namespace YahtzeeApp.Tests
             Assert.Equal(0,total);
         }
 
+       
+
         [Fact]
         public void Should_have_total_score_of_10_After_scoring_10_for_combination_fives_and_roll_2_5_3_1_5()
         {
             // Arrange
-            var scoreBoard = new ScoreBoard();
+            var scoreBoard = CreateScoreBoard();
 
             // Act           
             scoreBoard.SaveScore(Combination.Fives, new Roll(2,5,3,1,5));
@@ -41,7 +44,7 @@ namespace YahtzeeApp.Tests
         public void Should_have_total_score_of_28_After_scoring_multiple_combinations()
         {
             // Arrange
-            var scoreBoard = new ScoreBoard();
+            var scoreBoard = CreateScoreBoard();
 
             // Act           
             scoreBoard.SaveScore(Combination.Fives, new Roll(2, 5, 3, 1, 5));
@@ -56,7 +59,7 @@ namespace YahtzeeApp.Tests
         public void Should_get_score_of_10_for_combination_fives_After_scoring_multiple_combinations()
         {
             // Arrange
-            var scoreBoard = new ScoreBoard();
+            var scoreBoard = CreateScoreBoard();
 
             // Act           
             scoreBoard.SaveScore(Combination.Fives, new Roll(2, 5, 3, 1, 5));
@@ -66,13 +69,18 @@ namespace YahtzeeApp.Tests
             // Assert
             Assert.Equal(10, score);
         }
+
+        private ScoreBoard CreateScoreBoard()
+        {
+            return new ScoreBoard();
+        }
     }
 
     public class ScoreBoard
     {
         private readonly Dictionary<Combination, int> combinationScores;
 
-        public ScoreBoard(object repository)
+        public ScoreBoard()
         {
             combinationScores = new Dictionary<Combination, int>();
         }
@@ -96,5 +104,6 @@ namespace YahtzeeApp.Tests
         {
             return combinationScores[combination];
         }
+
     }
 }
