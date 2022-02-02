@@ -7,7 +7,8 @@ namespace YahtzeeApp
     {
         private readonly Dictionary<Combination, int> combinationScores;
 
-        private int BonusSimpleCombination { get; set; } 
+        private int BonusSimpleCombination { get; set; }
+        private int BonusYahtzee { get; set; }
 
         public ScoreBoard()
         {
@@ -16,7 +17,7 @@ namespace YahtzeeApp
 
         public int GetTotalScore()
         {
-            return combinationScores.Values.Sum() + BonusSimpleCombination;
+            return combinationScores.Values.Sum() + BonusSimpleCombination + BonusYahtzee;
         }
 
         public void SaveScore(Combination combination, Roll roll)
@@ -25,13 +26,16 @@ namespace YahtzeeApp
                 throw new CanNotScoreTwiceException();
             var result = ScoreEngine.CalculateCombination(roll, combination);
             combinationScores.Add(combination, result);
-            CheckBonus();
+            CheckBonus(roll, combination);
         }
 
-        private void CheckBonus()
+        private void CheckBonus(Roll roll, Combination combination)
         {
             if (BonusSimpleCombination != 35)
                 BonusSimpleCombination = GetSimpleCombinationTotalScore() >= 63 ? 35 : 0;
+
+            if (GetScore(Combination.Yahtzee) == 50 && roll.HasYahtzee() && combination != Combination.Yahtzee)
+                BonusYahtzee += 100;
         }
 
         public int? GetScore(Combination combination)

@@ -59,7 +59,36 @@ And the simple combination bonus score is 35
             player.SelectScore(Combination.Sixes);
 
             // Assert
-            Assert.Equal(119, scoreBoard.GetTotalScore());
+            Assert.Equal(119, player.TotalScore);
+        }
+
+        /*
+         *
+        Scenario 2 : Bonus Yahtzee
+
+        Given the player selects score of 50 for combination Yahtzee
+        When the player selects score of 5 for combination Chance with Yahtzee
+        Then the total score is 155
+         */
+        [Fact]
+        public void Bonus_Yahtzee()
+        {
+            // Given
+            var scoreBoard = new ScoreBoard();
+            _diceGenerator = new Mock<IDiceGenerator>();
+            var player = new Player(scoreBoard, _diceGenerator.Object);
+
+            SetGeneratedDices(1, 1, 1, 1, 1);
+            player.RollDices();
+            player.SelectScore(Combination.Yahtzee);
+
+            // When
+            SetGeneratedDices(1, 1, 1, 1, 1);
+            player.RollDices();
+            player.SelectScore(Combination.Chance);
+
+            // Assert
+            Assert.Equal(155, player.TotalScore);
         }
 
         private void SetGeneratedDices(int v1, int v2, int v3, int v4, int v5)
