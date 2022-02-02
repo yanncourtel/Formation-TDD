@@ -94,6 +94,21 @@ namespace YahtzeeApp.Tests
             Assert.Null(score);
         }
 
+        [Fact]
+        public void Should_not_score_twice_for_same_combination()
+        {
+            // Arrange
+            var scoreBoard = CreateScoreBoard(); ;
+            Roll roll = new RollBuilder().FromDicesValue(2, 5, 3, 1, 5).Build();
+
+            // Act
+
+            scoreBoard.SaveScore(Combination.Fives, roll);
+            // Assert
+            Assert.Throws<CanNotScoreTwiceException>(() =>
+                scoreBoard.SaveScore(Combination.Fives, roll));
+        }
+
         private ScoreBoard CreateScoreBoard()
         {
             return new ScoreBoard();

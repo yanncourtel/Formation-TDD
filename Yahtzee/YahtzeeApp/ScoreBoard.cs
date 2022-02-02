@@ -19,6 +19,8 @@ namespace YahtzeeApp
 
         public void SaveScore(Combination combination, Roll roll)
         {
+            if (combinationScores.ContainsKey(combination))
+                throw new CanNotScoreTwiceException();
             var result = ScoreEngine.CalculateCombination(roll, combination);
             combinationScores.Add(combination, result);
         }
